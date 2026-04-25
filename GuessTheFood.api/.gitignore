@@ -1,0 +1,33 @@
+# Build
+**/bin/
+**/obj/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# User files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ASP.NET secrets
+secrets.json
+
+# Env files
+.env
+
+# Test results
+TestResults/
+
+# Coverage
+coverage/
+
+# Docker overrides locales
+docker-compose.override.yml

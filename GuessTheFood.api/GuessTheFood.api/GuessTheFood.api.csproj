@@ -22,4 +22,9 @@
       <None Remove=".gitignore" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Application\" />
+      <Folder Include="Infrastructure\" />
+    </ItemGroup>
+
 </Project>

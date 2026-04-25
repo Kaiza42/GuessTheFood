@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Th8mI6Ag2dA=",
+  "success": true,
+  "projectFilePath": "/home/dec/dev/GuessTheFood/GuessTheFood.api/GuessTheFood.api/GuessTheFood.api.csproj",
+  "expectedPackageFiles": [
+    "/home/dec/.nuget/packages/microsoft.aspnetcore.openapi/9.0.14/microsoft.aspnetcore.openapi.9.0.14.nupkg.sha512",
+    "/home/dec/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

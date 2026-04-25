@@ -1,0 +1,7 @@
+﻿services:
+  guessthefood.api:
+    image: guessthefood.api
+    build:
+      context: .
+      dockerfile: GuessTheFood.api/Dockerfile
+

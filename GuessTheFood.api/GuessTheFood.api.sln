@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessTheFood.api", "GuessTheFood.api\GuessTheFood.api.csproj", "{115614B5-3B24-491C-A93C-9EF52BC82C42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4DA0F59F-429B-44AD-8BDB-3A4AA1C921BD}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{115614B5-3B24-491C-A93C-9EF52BC82C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{115614B5-3B24-491C-A93C-9EF52BC82C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{115614B5-3B24-491C-A93C-9EF52BC82C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{115614B5-3B24-491C-A93C-9EF52BC82C42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

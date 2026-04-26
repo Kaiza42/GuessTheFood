@@ -1,4 +1,4 @@
-namespace GuessTheFood.Api.Domain.Entities;
+namespace GuessTheFood.api.Domain.Entities;
 
 public class User
 {

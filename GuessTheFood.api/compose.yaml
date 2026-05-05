@@ -7,5 +7,24 @@
     ports:
       - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: ${CONNECTION_STRING}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: guessthefood.db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - guessthefood_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  guessthefood_postgres_data:

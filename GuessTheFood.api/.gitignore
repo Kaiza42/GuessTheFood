@@ -21,7 +21,7 @@ Thumbs.db
 secrets.json
 
 # Env files
-.env
+.env 
 
 # Test results
 TestResults/

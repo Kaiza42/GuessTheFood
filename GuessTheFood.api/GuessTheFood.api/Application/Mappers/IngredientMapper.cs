@@ -13,4 +13,16 @@ public static class IngredientMapper
             Name = ingredient.Name
         };
     }
+
+    public static Ingredient ToEntity(CreateIngredientDto dto)
+    {
+        return new Ingredient(dto.Name);
+    }
+
+    public static void UpdateEntity(
+        Ingredient ingredient,
+        UpdateIngredientDto dto)
+    {
+        ingredient.UpdateName(dto.Name);
+    }
 }

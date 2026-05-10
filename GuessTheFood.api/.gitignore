@@ -19,6 +19,7 @@ Thumbs.db
 
 # ASP.NET secrets
 secrets.json
+appsettings.Development.json
 
 # Env files
 .env 

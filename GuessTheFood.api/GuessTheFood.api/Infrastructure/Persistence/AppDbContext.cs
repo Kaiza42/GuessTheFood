@@ -28,6 +28,10 @@ public class AppDbContext : DbContext
             .Property(i => i.Name)
             .HasMaxLength(50)
             .IsRequired();
+        
+        modelBuilder.Entity<Ingredient>()
+            .HasIndex(i => i.Name)
+            .IsUnique();
 
         modelBuilder.Entity<User>()
             .HasOne(u => u.Role)

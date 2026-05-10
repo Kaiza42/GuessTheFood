@@ -1,10 +1,16 @@
+using GuessTheFood.api.Application.Interfaces.Services;
+using GuessTheFood.api.Application.Services;
 using GuessTheFood.Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
@@ -19,6 +25,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.MapGet("/", () =>
     {
@@ -39,4 +47,4 @@ app.MapGet("/health", () =>
     })
     .WithName("HealthCheck");
 
-app.Run();
+await app.RunAsync();

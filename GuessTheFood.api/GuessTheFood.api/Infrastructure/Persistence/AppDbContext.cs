@@ -24,12 +24,15 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Ingredient>()
+            .Property(i => i.Name)
+            .HasMaxLength(50)
+            .IsRequired();
 
         modelBuilder.Entity<User>()
             .HasOne(u => u.Role)
             .WithMany()
             .HasForeignKey(u => u.RoleId);
-
 
         modelBuilder.Entity<DishIngredient>()
             .HasKey(di => new
@@ -38,12 +41,10 @@ public class AppDbContext : DbContext
                 di.IngredientId
             });
 
-
         modelBuilder.Entity<DishIngredient>()
             .HasOne(di => di.Dish)
             .WithMany(d => d.Ingredients)
             .HasForeignKey(di => di.DishId);
-
 
         modelBuilder.Entity<DishIngredient>()
             .HasOne(di => di.Ingredient)

@@ -4,7 +4,7 @@ public class Ingredient
 {
     public Guid Id { get; private set; }
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
 
     private Ingredient() { }
 

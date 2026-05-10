@@ -39,6 +39,14 @@ public class IngredientService : IIngredientService
     public async Task<IngredientDto> CreateAsync(
         CreateIngredientDto dto)
     {
+        var normalizedName = dto.Name.Trim().ToLowerInvariant();
+
+        var exists = await _context.Ingredients
+            .AnyAsync(i => i.Name == normalizedName);
+
+        if (exists)
+            throw new InvalidOperationException("Ingredient already exists.");
+
         var ingredient = IngredientMapper.ToEntity(dto);
 
         _context.Ingredients.Add(ingredient);

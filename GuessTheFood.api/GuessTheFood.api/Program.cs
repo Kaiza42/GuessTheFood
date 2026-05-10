@@ -47,4 +47,4 @@ app.MapGet("/health", () =>
     })
     .WithName("HealthCheck");
 
-app.Run();
+await app.RunAsync();

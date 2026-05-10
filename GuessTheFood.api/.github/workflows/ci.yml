@@ -1,9 +1,7 @@
-name: CI
+name: Ci/CD
 
 on:
   pull_request:
-    branches:
-      - develop
 
 jobs:
   build-and-test:

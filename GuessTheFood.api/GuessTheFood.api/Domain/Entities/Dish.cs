@@ -18,6 +18,7 @@ public class Dish
 
     public Dish(string name)
     {
+        
         Id = Guid.NewGuid();
         Name = ValidateName(name);
     }

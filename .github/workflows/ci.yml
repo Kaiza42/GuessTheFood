@@ -63,10 +63,11 @@ jobs:
 
       - name: Begin SonarQube analysis
         run: |
-          dotnet sonarscanner begin \
-            /k:"GuessTheFood" \
-            /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+         dotnet sonarscanner begin \
+         /k:"GuessTheFood" \
+         /o:"Kaiza42" \
+         /d:sonar.host.url="https://sonarcloud.io" \
+         /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Restore dependencies
         run: dotnet restore GuessTheFood.api/GuessTheFood.api.sln

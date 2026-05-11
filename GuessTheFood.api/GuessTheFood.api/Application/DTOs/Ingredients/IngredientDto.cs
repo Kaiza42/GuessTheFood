@@ -8,6 +8,7 @@ public class IngredientDto
 
     [Required]
     [MaxLength(50)]
+    [MinLength(2)]
     [RegularExpression(@"^[a-zA-ZÀ-ÿ\s]+$",
         ErrorMessage = "Only letters are allowed.")]
     public string Name { get; set; } = string.Empty;

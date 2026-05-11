@@ -7,5 +7,7 @@ public class DishCreateDto
     [Required]
     [MinLength(2)]
     [MaxLength(50)]
+    [RegularExpression(@"^[a-zA-ZÀ-ÿ\s]+$",
+        ErrorMessage = "Name must contain only letters.")]
     public string Name { get; set; } = string.Empty;
 }

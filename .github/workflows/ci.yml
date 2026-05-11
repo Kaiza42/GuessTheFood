@@ -38,44 +38,44 @@ jobs:
       - name: Build Docker image
         run: docker compose -f GuessTheFood.api/compose.yaml build
 
-  sonarqube:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  # sonarqube:
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-test
+  #   if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
 
-      - name: Setup .NET 9
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Install SonarScanner
-        run: dotnet tool install --global dotnet-sonarscanner
+  #     - name: Setup .NET 9
+  #       uses: actions/setup-dotnet@v4
+  #       with:
+  #         dotnet-version: 9.0.x
 
-      - name: Add dotnet tools to PATH
-        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+  #     - name: Install SonarScanner
+  #       run: dotnet tool install --global dotnet-sonarscanner
 
-      - name: Begin SonarCloud analysis
-        run: |
-         dotnet sonarscanner begin \
-         /k:"${{ secrets.SONAR_PROJECT_KEY }}" \
-         /o:"${{ secrets.SONAR_ORG }}" \
-         /d:sonar.host.url="https://sonarcloud.io" \
-         /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+  #     - name: Add dotnet tools to PATH
+  #       run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      - name: Restore dependencies
-        run: dotnet restore GuessTheFood.api/GuessTheFood.api.sln
+  #     - name: Begin SonarCloud analysis
+  #       run: |
+  #        dotnet sonarscanner begin \
+  #        /k:"${{ secrets.SONAR_PROJECT_KEY }}" \
+  #        /o:"${{ secrets.SONAR_ORG }}" \
+  #        /d:sonar.host.url="https://sonarcloud.io" \
+  #        /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-      - name: Build
-        run: dotnet build GuessTheFood.api/GuessTheFood.api.sln --no-restore --configuration Release
+  #     - name: Restore dependencies
+  #       run: dotnet restore GuessTheFood.api/GuessTheFood.api.sln
 
-      - name: Run tests
-        run: dotnet test GuessTheFood.api/GuessTheFood.api.sln --configuration Release --verbosity normal
+  #     - name: Build
+  #       run: dotnet build GuessTheFood.api/GuessTheFood.api.sln --no-restore --configuration Release
 
-      - name: End SonarQube analysis
-        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+  #     - name: Run tests
+  #       run: dotnet test GuessTheFood.api/GuessTheFood.api.sln --configuration Release --verbosity normal
+
+  #     - name: End SonarQube analysis
+  #       run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

@@ -1,7 +1,9 @@
-name: Ci/CD
+name: CI/CD
 
 on:
   push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -18,27 +20,14 @@ jobs:
         with:
           dotnet-version: 9.0.x
 
-      # - name: Install SonarScanner
-      #   run: dotnet tool install --global dotnet-sonarscanner
-
       - name: Restore dependencies
-        run: dotnet restore GuessTheFood.api.sln
-
-      # - name: Begin SonarQube analysis
-      #   run: |
-      #     dotnet sonarscanner begin \
-      #       /k:"GuessTheFood" \
-      #       /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
-      #       /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        run: dotnet restore GuessTheFood.api/GuessTheFood.api.sln
 
       - name: Build
-        run: dotnet build GuessTheFood.api.sln --no-restore --configuration Release
+        run: dotnet build GuessTheFood.api/GuessTheFood.api.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test GuessTheFood.api.sln --no-build --configuration Release --verbosity normal
-
-      # - name: End SonarQube analysis
-      #   run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        run: dotnet test GuessTheFood.api/GuessTheFood.api.sln --configuration Release --verbosity normal
 
   docker-build:
     runs-on: ubuntu-latest
@@ -49,4 +38,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker compose build
+        run: docker compose -f GuessTheFood.api/docker-compose.yml build

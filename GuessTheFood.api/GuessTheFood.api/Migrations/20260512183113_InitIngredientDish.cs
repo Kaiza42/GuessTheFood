@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GuessTheFood.api.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateIngredientNameConstraints : Migration
+    public partial class InitIngredientDish : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,7 +28,9 @@ namespace GuessTheFood.api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Type = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,6 +100,12 @@ namespace GuessTheFood.api.Migrations
                 name: "IX_DishIngredients_IngredientId",
                 table: "DishIngredients",
                 column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ingredients_Name",
+                table: "Ingredients",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

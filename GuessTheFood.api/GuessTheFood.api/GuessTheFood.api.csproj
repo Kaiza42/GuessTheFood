@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +27,10 @@
 
     <ItemGroup>
       <None Remove=".gitignore" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain\Enums\" />
     </ItemGroup>
 
 </Project>

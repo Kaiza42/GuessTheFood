@@ -1,31 +1,38 @@
-namespace GuessTheFood.api.Domain.Entities;
-
+using GuessTheFood.api.Domain.Enums;
 public class Ingredient
 {
     public Guid Id { get; private set; }
-
     public string Name { get; private set; } = string.Empty;
+    public IngredientType Type { get; private set; }
+    public DateTime CreatedAt { get; private set; }
 
     private Ingredient() { }
 
-    public Ingredient(string name)
+    public Ingredient(string name, IngredientType type)
     {
         Id = Guid.NewGuid();
-        Name = ValidateName(name);
+        CreatedAt = DateTime.UtcNow;
+
+        SetName(name);
+        Type = type;
     }
 
-    public void UpdateName(string name)
+    public void Update(string name, IngredientType type)
     {
-        Name = ValidateName(name);
+        SetName(name);
+        Type = type;
     }
 
-    private static string ValidateName(string name)
+    private void SetName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException(
-                "Ingredient name cannot be empty.",
-                nameof(name));
+            throw new ArgumentException("Ingredient name cannot be empty.");
 
-        return name.Trim().ToLowerInvariant();
+        name = name.Trim();
+
+        if (name.Length < 2 || name.Length > 50)
+            throw new ArgumentException("Ingredient name must be between 2 and 50 characters.");
+
+        Name = name;
     }
 }

@@ -52,25 +52,6 @@ namespace GuessTheFood.api.Migrations
                     b.ToTable("DishIngredients");
                 });
 
-            modelBuilder.Entity("GuessTheFood.api.Domain.Entities.Ingredient", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Ingredients");
-                });
-
             modelBuilder.Entity("GuessTheFood.api.Domain.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -120,6 +101,33 @@ namespace GuessTheFood.api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Ingredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("GuessTheFood.api.Domain.Entities.DishIngredient", b =>
                 {
                     b.HasOne("GuessTheFood.api.Domain.Entities.Dish", "Dish")
@@ -128,7 +136,7 @@ namespace GuessTheFood.api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GuessTheFood.api.Domain.Entities.Ingredient", "Ingredient")
+                    b.HasOne("Ingredient", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)

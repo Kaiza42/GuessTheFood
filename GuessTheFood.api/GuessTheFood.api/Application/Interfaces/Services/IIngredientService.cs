@@ -1,10 +1,13 @@
 using GuessTheFood.api.Application.DTOs.Ingredients;
+using GuessTheFood.api.Domain.Enums;
 
 namespace GuessTheFood.api.Application.Interfaces.Services;
 
 public interface IIngredientService
 {
     Task<List<IngredientDto>> GetAllAsync();
+
+    Task<List<IngredientDto>> GetByTypeAsync(IngredientType type);
 
     Task<IngredientDto?> GetByIdAsync(Guid id);
 
@@ -13,4 +16,5 @@ public interface IIngredientService
     Task<bool> UpdateAsync(Guid id, UpdateIngredientDto dto);
 
     Task<bool> DeleteAsync(Guid id);
+    Task<IngredientDto?> GetByNameAsync(string name);
 }

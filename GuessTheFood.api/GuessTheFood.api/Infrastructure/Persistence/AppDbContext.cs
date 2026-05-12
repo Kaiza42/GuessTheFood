@@ -13,11 +13,9 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
-
     public DbSet<Dish> Dishes => Set<Dish>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<DishIngredient> DishIngredients => Set<DishIngredient>();
-
 
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
@@ -28,7 +26,13 @@ public class AppDbContext : DbContext
             .Property(i => i.Name)
             .HasMaxLength(50)
             .IsRequired();
-        
+
+        modelBuilder.Entity<Ingredient>()
+            .Property(i => i.Type)
+            .HasConversion<string>()
+            .HasMaxLength(30)
+            .IsRequired();
+
         modelBuilder.Entity<Ingredient>()
             .HasIndex(i => i.Name)
             .IsUnique();

@@ -3,6 +3,7 @@ using GuessTheFood.api.Application.Interfaces.Services;
 using GuessTheFood.api.Application.Mappers;
 using GuessTheFood.Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using GuessTheFood.api.Domain.Enums;
 
 namespace GuessTheFood.api.Application.Services;
 
@@ -35,14 +36,27 @@ public class IngredientService : IIngredientService
 
         return IngredientMapper.ToDto(ingredient);
     }
-
-    public async Task<IngredientDto> CreateAsync(
-        CreateIngredientDto dto)
+    
+    public async Task<List<IngredientDto>> GetByTypeAsync(IngredientType type)
     {
-        var normalizedName = dto.Name.Trim().ToLowerInvariant();
+        var ingredients = await _context.Ingredients
+            .Where(i => i.Type == type)
+            .ToListAsync();
+
+        return ingredients.Select(i => new IngredientDto
+        {
+            Id = i.Id,
+            Name = i.Name,
+            Type = i.Type
+        }).ToList();
+    }
+
+    public async Task<IngredientDto> CreateAsync(CreateIngredientDto dto)
+    {
+        var name = dto.Name.Trim();
 
         var exists = await _context.Ingredients
-            .AnyAsync(i => i.Name == normalizedName);
+            .AnyAsync(i => i.Name.ToLower() == name.ToLower());
 
         if (exists)
             throw new InvalidOperationException("Ingredient already exists.");
@@ -66,6 +80,16 @@ public class IngredientService : IIngredientService
         if (ingredient is null)
             return false;
 
+        var name = dto.Name.Trim();
+
+        var exists = await _context.Ingredients
+            .AnyAsync(i =>
+                i.Id != id &&
+                i.Name.ToLower() == name.ToLower());
+
+        if (exists)
+            throw new InvalidOperationException("Ingredient already exists.");
+
         IngredientMapper.UpdateEntity(
             ingredient,
             dto);
@@ -88,5 +112,17 @@ public class IngredientService : IIngredientService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+    
+    public async Task<IngredientDto?> GetByNameAsync(string name)
+    {
+        var ingredient = await _context.Ingredients
+            .FirstOrDefaultAsync(i =>
+                i.Name.ToLower() == name.Trim().ToLower());
+
+        if (ingredient is null)
+            return null;
+
+        return IngredientMapper.ToDto(ingredient);
     }
 }

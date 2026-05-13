@@ -6,6 +6,7 @@ public class Dish
 
     public Guid Id { get; private set; }
     public string Name { get; private set; }
+    public string Description { get; private set; }
 
     public IReadOnlyCollection<DishIngredient> Ingredients => _ingredients.AsReadOnly();
 
@@ -14,12 +15,14 @@ public class Dish
     private Dish()
     {
         Name = string.Empty;
+        Description = string.Empty;
     }
 
-    public Dish(string name)
+    public Dish(string name, string description)
     {
         Id = Guid.NewGuid();
         Name = ValidateName(name);
+        Description = ValidateDescription(description);
     }
 
     public void AddIngredient(Ingredient ingredient)
@@ -42,5 +45,13 @@ public class Dish
             throw new ArgumentException("Dish name cannot be empty.", nameof(name));
 
         return name.Trim();
+    }
+
+    private static string ValidateDescription(string description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Dish description cannot be empty.", nameof(description));
+
+        return description.Trim();
     }
 }

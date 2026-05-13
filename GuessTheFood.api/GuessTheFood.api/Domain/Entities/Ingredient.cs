@@ -12,7 +12,6 @@ public class Ingredient
     {
         Id = Guid.NewGuid();
         CreatedAt = DateTime.UtcNow;
-
         SetName(name);
         Type = type;
     }

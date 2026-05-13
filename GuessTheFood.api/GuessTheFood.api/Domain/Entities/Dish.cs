@@ -54,4 +54,10 @@ public class Dish
 
         return description.Trim();
     }
+    
+    public void Update(string name, string description)
+    {
+        Name = ValidateName(name);
+        Description = ValidateDescription(description);
+    }
 }

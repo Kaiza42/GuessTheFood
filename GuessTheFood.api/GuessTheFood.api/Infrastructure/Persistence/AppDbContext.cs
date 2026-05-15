@@ -16,11 +16,21 @@ public class AppDbContext : DbContext
     public DbSet<Dish> Dishes => Set<Dish>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<DishIngredient> DishIngredients => Set<DishIngredient>();
+    public DbSet<Country> Countries => Set<Country>();
 
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Country>()
+            .Property(c => c.Name)
+            .HasMaxLength(50)
+            .IsRequired();
+
+        modelBuilder.Entity<Country>()
+            .HasIndex(c => c.Name)
+            .IsUnique();
 
         modelBuilder.Entity<Ingredient>()
             .Property(i => i.Name)
@@ -41,6 +51,11 @@ public class AppDbContext : DbContext
             .HasOne(u => u.Role)
             .WithMany()
             .HasForeignKey(u => u.RoleId);
+
+        modelBuilder.Entity<Dish>()
+            .HasOne(d => d.Country)
+            .WithMany()
+            .HasForeignKey(d => d.CountryId);
 
         modelBuilder.Entity<DishIngredient>()
             .HasKey(di => new

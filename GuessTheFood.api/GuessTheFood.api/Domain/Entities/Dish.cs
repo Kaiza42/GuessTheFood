@@ -12,7 +12,7 @@ public class Dish
 
     public Guid CountryId { get; private set; }
 
-    public Country Country { get; private set; }
+    public Country? Country { get; private set; }
 
     public Guid CategoryId { get; private set; }
 

@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(

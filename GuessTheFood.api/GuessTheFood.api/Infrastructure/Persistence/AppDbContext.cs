@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     {
     }
 
+    public DbSet<Category> Categories => Set<Category>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<Dish> Dishes => Set<Dish>();
@@ -63,6 +64,15 @@ public class AppDbContext : DbContext
                 di.DishId,
                 di.IngredientId
             });
+        
+        modelBuilder.Entity<Category>()
+            .Property(category => category.Name)
+            .HasMaxLength(30)
+            .IsRequired();
+
+        modelBuilder.Entity<Category>()
+            .HasIndex(category => category.Name)
+            .IsUnique();
 
         modelBuilder.Entity<DishIngredient>()
             .HasOne(di => di.Dish)
